@@ -1,2 +1,2 @@
-x.title = "Nineteen Eighty-Four"
-x.save()
+book.title = "Nineteen Eighty-Four"
+book.save()
