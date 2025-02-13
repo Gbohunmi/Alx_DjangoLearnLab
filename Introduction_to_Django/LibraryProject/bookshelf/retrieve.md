@@ -1,2 +1,3 @@
+Book.objects.all().values()
 Book.objects.get()
-Expected Output<Book: Book object (3)>
+<QuerySet [{'id': 1, 'title': '1984', 'author': 'George Orwell', 'publication_year': 1949}]>
