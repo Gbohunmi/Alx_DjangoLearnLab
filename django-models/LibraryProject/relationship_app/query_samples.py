@@ -12,7 +12,7 @@ for book in books_by_author:
 library_name = 'empty'
 
 library = Library.objects.get(name=library_name)
-books_in_library = Book.objects.filter(library=library)
+books_in_library = Library.books.all()
 
 print(f"Books in {library_name}:")
 for book in books_in_library:
