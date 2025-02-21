@@ -60,6 +60,7 @@ def logout_request(request):
 
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
+
 def is_admin(user):
     return user.userprofile.role == 'Admin'
 
