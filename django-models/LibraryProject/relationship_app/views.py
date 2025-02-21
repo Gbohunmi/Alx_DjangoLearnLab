@@ -19,11 +19,40 @@ class LibraryListView(ListView):
   template_name = 'relationship_app/library_detail.html'
   context_object_name = 'library'
 
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
 
 class RegisterationView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'relationship_app/register.html'
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
+
+
+from django.contrib.auth import views as authentication_views
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout
+
+# Login view
+def login_view(request):
+    return authentication_views.LoginView.as_view(template_name='relationship_app/login.html')(request)
+
+# Logout view
+def logout_view(request):
+    return authentication_views.LogoutView.as_view(template_name='relationship_app/logout.html')(request)
+
+def logout_request(request):
+  logout(request)
+  messages.info(request, "Logged out successfully!")
+  return redirect("main:homepage")
