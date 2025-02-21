@@ -34,7 +34,7 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
 
-    roles = [
+    ROLE_CHOICES  = [
         ('Admin', 'Admin'),
         ('Librarian', 'Librarian'),
         ('Member', 'Member'),
@@ -42,6 +42,6 @@ class UserProfile(models.Model):
 
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=9, choices=roles)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
 
     
