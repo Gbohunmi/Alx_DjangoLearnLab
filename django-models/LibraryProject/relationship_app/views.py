@@ -60,6 +60,8 @@ def logout_request(request):
 
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
+from .models import UserProfile
+
 
 def is_admin(user):
     return user.userprofile.role == 'Admin'
@@ -81,3 +83,4 @@ def librarian_view(request):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
