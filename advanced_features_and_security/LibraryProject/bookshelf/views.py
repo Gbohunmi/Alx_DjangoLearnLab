@@ -24,7 +24,7 @@ def add_book(request):
     else:
         form = ExampleForm()
 
-    return render(request, 'example_form.html', {'form': form})
+    return render(request, 'form_example.html', {'form': form})
 
 @login_required
 @permission_required("bookshelf.can_view", raise_exception=True)
