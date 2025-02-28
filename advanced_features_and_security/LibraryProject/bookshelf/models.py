@@ -9,6 +9,17 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+    class Meta:
+        permissions = [
+            ('can_view', 'Can View'),
+            ('can_create', 'Can Create'),
+            ('can_edit', 'Can Edit'),
+            ('can_delete', 'Can Delete'),
+        ]
+
+    def __str__(self):
+        return self.title
+
 
 class CustomUserManager(BaseUserManager):
      
@@ -45,7 +56,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     date_of_birth = models.DateField(null=True, blank=True)
-    profile_photo = models.ImageField(blank=True)
+    profile_photo = models.ImageField()
 
     objects = CustomUserManager()
 
