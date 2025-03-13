@@ -13,8 +13,10 @@ class BookSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(f'{publication_year} is in the future')
         return super().validate(publication_year)
 
-#Defined Author Serializer
+#Defined Author Serializer and nested BookSerializer in it to return book data
 class AuthorSerializer(serializers.ModelSerializer):
-     class Meta:    
+    books = BookSerializer(many=True, read_only=True)
+
+    class Meta:    
         model = Author
-        fields = ['name']
+        fields = ['id','name', 'books']
