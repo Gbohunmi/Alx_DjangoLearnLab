@@ -2,10 +2,12 @@ from django.db import models
 
 # Create your models here.
 
+
+#Defined the Author Model 
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
-
+#Defined the Book Model with author foreign key linked to the Author Model
 class Book(models.Model):
     title = models.CharField(max_length=100)
     publication_year = models.IntegerField()
