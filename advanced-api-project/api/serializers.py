@@ -6,10 +6,12 @@ from datetime import datetime
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['__all__']
+        fields = ['id','title','publication_year','author']
 
-    def validate(self, publication_year):
-        if datetime.now().year < publication_year:
+    def validate_publication_year(self, publication_year):
+
+        now = int(datetime.now().year)
+        if now < (publication_year):
             raise serializers.ValidationError(f'{publication_year} is in the future')
         return super().validate(publication_year)
 
