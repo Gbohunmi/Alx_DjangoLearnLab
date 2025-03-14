@@ -9,11 +9,14 @@ from .models import Author, Book
 from .serializers import BookSerializer, AuthorSerializer
 
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly , IsAuthenticated
 
 # Create your views here.
 
 class ListView(ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
@@ -25,6 +28,9 @@ class CreateView(CreateAPIView):
     serializer_class = BookSerializer
 
 class DetailView(RetrieveAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
