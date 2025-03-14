@@ -7,6 +7,12 @@ from django.db import models
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+           return self.name
+    
+    class Meta:
+        app_label = 'api'
+
 #Defined the Book Model with author foreign key linked to the Author Model
 class Book(models.Model):
     title = models.CharField(max_length=100)
