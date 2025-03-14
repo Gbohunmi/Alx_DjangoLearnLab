@@ -2,7 +2,7 @@ from django.test import TestCase
 from .models import Book
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
-
+from rest_framework import status
 class BookAPITests(APITestCase):
     #Setting up of the required tests
 
