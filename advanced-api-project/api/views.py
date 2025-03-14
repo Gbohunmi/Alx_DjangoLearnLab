@@ -29,8 +29,8 @@ class ListView(ListAPIView):
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     ordering_fields = ['title', 'publication_year']
-    filtering_fields = ['title', 'author', 'publication_year']
-    search_fields = ['title', 'author']
+    filtering_fields = ['title', 'publication_year']
+    search_fields = ['title', 'publication_year']
 
 class CreateView(CreateAPIView):
     authentication_classes = [TokenAuthentication]
