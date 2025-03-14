@@ -25,7 +25,16 @@ class BookAPITests(APITestCase):
         self.assertEqual(response.status_code, 200)  
 
     def test_unauthenticated_user_create(self):
-        # Check if an authenticated user can create books.
+        # Check if an authenticated user can access create books.
         self.client.logout()
         response = self.client.get("/api/books/create")
         self.assertEqual(response.status_code, 401)  
+
+    def test_create_book_authenticated_user(self):
+        #Check if an authenticated user can create books. 
+        self.client.login(username='test_user', password='test123')
+        data = {'title': 'Test_Book', 'publication_year': 2019, 'author': 'Orwell'}
+
+        response = self.client.post(self.create_url, data)
+        self.assertEquals(response.status_code, 201)
+        self.assertEquals(Book.objects.get(pk=response.data['id']).title, 'Test_Book')
