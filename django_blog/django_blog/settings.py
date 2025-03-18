@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'mysql.connector.django',
         'NAME': 'DjangoBlog',
         'USER': 'root',
-        'PASSWORD': 'Kore12com#',
+        'PASSWORD': 'MyN3wP4ssw0rd#',
         'HOST': '127.0.0.1',
         'PORT': '3306',
 
