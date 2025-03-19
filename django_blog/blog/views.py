@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post, User
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileUpdateForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # Create your views here.
 
 class RegisterView(CreateView):
@@ -27,6 +28,7 @@ def profile_update(request):
 
 
 class PostCreateView(CreateView):
+    #View for creating posts
     model = Post
     fields = ['title', 'content']
     template_name = 'blog/post_form.html'
@@ -47,15 +49,25 @@ class PostDetailView(DetailView):
     template_name = 'blog/post_detail.html'
     context_object_name = 'posts'
 
-class PostDeleteView(DeleteView):
+
+class PostDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
+    #View for deleting posts. The mixins implemented are for authentication
     model = Post
     template_name = 'blog/confirm_delete.html'
 
+def test_func(self):
+        post = self.get_object()
+        return post.author == self.request.user
 
-class PostEditView(UpdateView):
+
+class PostEditView(UpdateView, UserPassesTestMixin, LoginRequiredMixin):
+     #View for editing posts. The mixins implemented are for authentication
     model = Post
     template_name = 'blog/edit_post.html'
     context_object_name = 'posts'
 
+    def test_func(self):
+        post = self.get_object()
+        return post.author == self.request.user
 
 
