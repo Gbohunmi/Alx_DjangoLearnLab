@@ -18,9 +18,9 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
 
     #Post Views
-    path("posts/new/", PostCreateView.as_view(template_name="post_form.html"), name="create-post"),
+    path("post/new/", PostCreateView.as_view(template_name="post_form.html"), name="create-post"),
     path("posts", PostListView.as_view(template_name="post_list.html"), name="posts"),
-    path("posts/<int:pk>", PostCreateView.as_view(template_name="post_detail.html"), name="post-details"),
-    path("/posts/<int:pk>/update/", PostCreateView.as_view(template_name="edit_post.html"), name="edit-post"),
-    path("/posts/<int:pk>/delete/", PostCreateView.as_view(template_name="confirm_delete.html"), name="delete-post"),
+    path("post/<int:pk>", PostCreateView.as_view(template_name="post_detail.html"), name="post-details"),
+    path("/post/<int:pk>/update/", PostCreateView.as_view(template_name="edit_post.html"), name="edit-post"),
+    path("/post/<int:pk>/delete/", PostCreateView.as_view(template_name="confirm_delete.html"), name="delete-post"),
 ]
