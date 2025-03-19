@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Blog{% endblock %}</title>
+    <title>{% block title %}Login Page{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -21,7 +21,13 @@
 
     <div class="content">
         {% block content %}
-        <!-- Page-specific content goes here -->
+        <h1>Login</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+            <a href="{% url 'register' %}">Register</a>    
         {% endblock %}
     </div>
 
