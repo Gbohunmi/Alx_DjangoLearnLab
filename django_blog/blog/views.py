@@ -11,7 +11,7 @@ class RegisterView(CreateView):
     # A custom registration view that is class-based and uses UserCreationForm
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
-    template_name = "blog/registration.html"
+    template_name = "blog/register.html"
 
 # a function-based profile view requiring the user to be logged in
 #@login_required
