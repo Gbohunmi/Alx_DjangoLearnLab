@@ -6,8 +6,8 @@
 
 {% for post in posts %}
     <div>
-        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-        <p>By {{ post.author }}</p>
+        <h3><a href="{%url 'post-details' post.pk %}">{{ post.title }}</a></h3>
+        <p>Made By {{ post.author }}</p>
     </div>
 {% endfor %}
 <a href="{% url 'create-post' %}">Create New Post</a>
