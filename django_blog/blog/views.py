@@ -89,7 +89,7 @@ class CommentCreateView(CreateView, LoginRequiredMixin):
         return reverse_lazy('post-details', kwargs={'pk': self.kwargs['pk']})
 
 
-class CommentEditView(UpdateView, UserPassesTestMixin, LoginRequiredMixin):
+class CommentUpdateView(UpdateView, UserPassesTestMixin, LoginRequiredMixin):
     #View for Editing Comments
     model = Comment
     form_class = CommentForm
