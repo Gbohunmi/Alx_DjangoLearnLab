@@ -1,6 +1,7 @@
 from django import forms
 from .models import User, Post, Comment
 from taggit.forms import TagWidget, TagField
+#widgets
 
 
 class ProfileUpdateForm(forms.ModelForm):
