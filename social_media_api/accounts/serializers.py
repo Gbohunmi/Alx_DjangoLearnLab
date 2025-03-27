@@ -8,6 +8,9 @@ from rest_framework.exceptions import AuthenticationFailed
 
 #Serializer to create new accounts
 class RegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+
     class Meta:
         model = get_user_model()
         fields = ['username', 'email', 'password', 'bio', 'profile_picture']
