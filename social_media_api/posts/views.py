@@ -87,8 +87,8 @@ class LikePostAPIView(generics.APIView):
     """
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, post_id, *args, **kwargs):
-        post = generics.get_object_or_404(Post, pk=post_id)
+    def post(self, request, pk):
+        post = generics.get_object_or_404(Post, pk=pk)
 
         # Check if the user has already liked the post or create a Like entry
         like, create = Like.objects.get_or_create(user=request.user, post=post)
@@ -124,8 +124,8 @@ class UnlikePostAPIView(generics.APIView):
     """
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, post_id, *args, **kwargs):
-        post = generics.get_object_or_404(Post, pk=post_id)
+    def post(self, request, pk):
+        post = generics.get_object_or_404(Post, pk=pk)
 
         # Check if the user has liked the post
         try:
