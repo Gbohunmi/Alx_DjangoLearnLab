@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from rest_framework import generics
-
+from rest_framework import permissions
 
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
@@ -60,7 +60,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 class FeedAPIView(generics.ListAPIView):
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         # Get the current logged-in user.
