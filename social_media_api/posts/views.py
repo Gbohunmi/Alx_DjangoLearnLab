@@ -80,7 +80,7 @@ class FeedAPIView(generics.ListAPIView):
         queryset = Post.objects.filter(author__in=following_users).order_by('-created_at')
         return queryset
 
-class LikePostAPIView(generics.):
+class LikePostAPIView(generics.GenericAPIView):
     """
     Handles liking a post.
     Prevents duplicate likes and generates a notification for the action.
@@ -117,7 +117,7 @@ class LikePostAPIView(generics.):
         )
 
 
-class UnlikePostAPIView(generics.):
+class UnlikePostAPIView(generics.GenericAPIView):
     """
     Handles unliking a post.
     Removes the like entry from the database.
