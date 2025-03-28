@@ -6,10 +6,11 @@ router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='post')
 router.register(r'comments', CommentViewSet, basename='comment')
 
+#Url patterns for the feed, like & unlikes
 urlpatterns = [
     path('', include(router.urls)),
     path('feed/', FeedAPIView.as_view(), name='feed'),
-    path('like/<int:post_id>/', LikePostAPIView.as_view(), name='like-post'),
-    path('unlike/<int:post_id>/', UnlikePostAPIView.as_view(), name='unlike-post'),
+    path('posts/<int:pk>/like/', LikePostAPIView.as_view(), name='like-post'),
+    path('posts/<int:pk>/unlike/', UnlikePostAPIView.as_view(), name='unlike-post'),
 
 ]
