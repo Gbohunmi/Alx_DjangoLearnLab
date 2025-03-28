@@ -10,7 +10,15 @@ class CustomUser(AbstractUser):
     followers = models.ManyToManyField('self',
                                         symmetrical=False,
                                          blank=True,
-                                         related_name='following')
+                                         related_name='following_set')
+    
+    following = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        related_name='followers_set',
+        blank=True
+    )
+
 
     def __str__(self):
         return self.username

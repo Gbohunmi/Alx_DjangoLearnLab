@@ -68,7 +68,7 @@ class FeedAPIView(generics.ListAPIView):
 
         # Retrieves all users that 'user' is following.
         
-        following_users = user.followers.all()
+        following_users = user.following.all()
 
         # Fetch posts authored by these followed users.
         # Order by creation date descending so the most recent posts appear first.
