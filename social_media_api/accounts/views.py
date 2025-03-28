@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from .serializers import RegistrationSerializer, LoginSerializer, UserProfileSerializer
 from rest_framework.generics import RetrieveUpdateAPIView
 from django.contrib.auth import get_user_model
+from rest_framework import generics, permissions
 
 User = get_user_model()
 
@@ -68,11 +69,11 @@ class UserProfileAPIView(RetrieveUpdateAPIView):
         return self.request.user
 
 
-class FollowAPIView(APIView):
+class FollowAPIView(generics.GenericAPIView):
     """
     Allows an authenticated user to follow another user.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id, *args, **kwargs):
         """
@@ -108,11 +109,11 @@ class FollowAPIView(APIView):
             status=status.HTTP_200_OK
         )
 
-class UnfollowAPIView(APIView):
+class UnfollowAPIView(generics.GenericAPIView):
     """
     Allows an authenticated user to unfollow a user.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id, *args, **kwargs):
         """
@@ -139,3 +140,5 @@ class UnfollowAPIView(APIView):
             {'detail': f'You have unfollowed {target_user.username}.'},
             status=status.HTTP_200_OK
         )
+
+#CustomUser.objects.all()
