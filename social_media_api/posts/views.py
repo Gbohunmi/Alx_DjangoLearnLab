@@ -50,6 +50,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticated]#Allows only authenticated users to view posts.
 
+    pagination_class = StandardResultsSetPagination
 
     def perform_create(self, serializer):
         # Automatically sets the current user as the author when creating a comment.
