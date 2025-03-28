@@ -101,7 +101,7 @@ class FollowAPIView(APIView):
             )
 
         # Add the target user to the authenticated user's following list.
-        request.user.following.add(target_user)
+        request.user.follower.add(target_user)
         
         return Response(
             {'detail': f'You are now following {target_user.username}.'},
