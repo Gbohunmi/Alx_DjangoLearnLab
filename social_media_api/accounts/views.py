@@ -6,6 +6,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
 from .serializers import RegistrationSerializer, LoginSerializer, UserProfileSerializer
 from rest_framework.generics import RetrieveUpdateAPIView
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 # Create your views here.
 
@@ -64,3 +68,74 @@ class UserProfileAPIView(RetrieveUpdateAPIView):
         return self.request.user
 
 
+class FollowAPIView(APIView):
+    """
+    Allows an authenticated user to follow another user.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id, *args, **kwargs):
+        """
+        Expects the URL to provide the target user's ID as 'user_id'.
+        """
+        try:
+            target_user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'User not found.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Prevent self-following
+        if target_user == request.user:
+            return Response(
+                {'detail': 'You cannot follow yourself.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if the request.user is already following the target user.
+        if target_user in request.user.following.all():
+            return Response(
+                {'detail': 'You are already following this user.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Add the target user to the authenticated user's following list.
+        request.user.following.add(target_user)
+        
+        return Response(
+            {'detail': f'You are now following {target_user.username}.'},
+            status=status.HTTP_200_OK
+        )
+
+class UnfollowAPIView(APIView):
+    """
+    Allows an authenticated user to unfollow a user.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id, *args, **kwargs):
+        """
+        Expects the URL to provide the target user's ID as 'user_id'.
+        """
+        try:
+            target_user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'User not found.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Checks that the user is actually following the target, otherwise there is nothing to unfollow.
+        if target_user not in request.user.following.all():
+            return Response(
+                {'detail': 'You are not following this user.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Removes the target user from the authenticated user's following list.
+        request.user.following.remove(target_user)
+        return Response(
+            {'detail': f'You have unfollowed {target_user.username}.'},
+            status=status.HTTP_200_OK
+        )
